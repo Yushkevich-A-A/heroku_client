@@ -1,0 +1,58 @@
+* {
+  list-style-type: none;
+  text-decoration: none;
+  padding: 0px;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  color: #3d3d3d;
+}
+
+body {
+  background-image: url('../image/patternbg.png');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.wrapper-delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.field-delete {
+  width: 400px;
+  background-color: #fff;
+  border: 1px solid #818181;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.field-delete-title {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.delete-block:nth-child(n + 2) {
+  margin-top: 10px;
+}

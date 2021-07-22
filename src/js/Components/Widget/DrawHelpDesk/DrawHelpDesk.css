@@ -1,0 +1,98 @@
+.widget {
+  max-width: 700px;
+  width: 100%;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+
+.add-block { 
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-ticket {
+  margin-bottom: 15px;
+}
+
+.ticket-list-block {
+  background-color: #fff;
+  border: 1px solid #818181;  
+}
+
+.empty {
+  padding: 20px;
+  text-align: center;
+}
+
+.ticket-item {
+  padding: 10px;
+}
+
+.ticket-item:nth-child(n + 2) {
+  border-top: 1px solid #818181;  
+}
+
+.brief-description {
+  display: flex;
+  justify-content: space-between
+}
+
+.block-icon {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #818181;
+  border-radius: 50%;
+}
+
+.complited {
+  text-align: center;
+}
+
+.complited::after {
+  content: "\2714";
+  text-align: center;
+}
+
+.title-ticket {
+  width:400px;
+}
+
+.ticket-buttons {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between
+}
+
+.ticket-button {
+  cursor: pointer;
+}
+
+.block-edit {
+  text-align: center;
+}
+
+.block-edit::after {
+  content: "\270E";
+  text-align: center;
+}
+
+.block-delete {
+  margin-left: 10px;
+  text-align: center;
+}
+
+.block-delete::after {
+  content: "\2716";
+  text-align: center;
+}
+
+.full-description {
+  width: 500px;
+  padding: 20px 40px;
+}
+
+.disable {
+  display: none;
+}
