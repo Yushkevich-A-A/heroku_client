@@ -4,7 +4,7 @@ export default class DrawDelete {
 
   drawDelete() {
     this.wrapperDelete = document.createElement('div');
-    this.wrapperDelete.classList.add('wrapper-Delete');
+    this.wrapperDelete.classList.add('wrapper-delete');
     this.wrapperDelete.innerHTML = `<div class="field-delete">
     <h3 class="field-delete-title">Удалить элемент</h3>
     <div class="field-delete-block">
@@ -14,8 +14,8 @@ export default class DrawDelete {
         </p>
       </div>
       <div class="delete-block block-buttons">
-        <div class="button cancel">Отмена</div>
-        <div class="button submit">ОК</div>
+        <div class="button delete-cancel">Отмена</div>
+        <div class="button delete-submit">ОК</div>
       </div>
     </div>
   </div>`;

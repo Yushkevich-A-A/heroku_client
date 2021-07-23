@@ -2,10 +2,10 @@ export default class DrawPopupTicket {
   constructor() {
   }
 
-  drawPopup() {
+  drawPopup(type) {
     this.wrapperPopup = document.createElement('div');
     this.wrapperPopup.classList.add('wrapper-popup');
-    this.wrapperPopup.innerHTML = `<div class="popup">
+    this.wrapperPopup.innerHTML = `<div class="popup" data-type="${type}">
     <h3 class="popup-title"></h3>
     <form class="form">
       <div class="input-block">
@@ -17,8 +17,8 @@ export default class DrawPopupTicket {
         <textarea name="full-desc" class="input input-textarea input-full-desc"></textarea>
       </div>
       <div class="input-block block-buttons">
-        <div class="button cancel">Отмена</div>
-        <div class="button submit">ОК</div>
+        <div class="button ${type}-cancel">Отмена</div>
+        <div class="button ${type}-submit">ОК</div>
       </div>
     </form>
   </div>`;
@@ -28,5 +28,6 @@ export default class DrawPopupTicket {
 
   deletePopup() {
     this.wrapperPopup.parentElement.removeChild(this.wrapperPopup);
+    this.wrapperPopup = null;
   }
 }

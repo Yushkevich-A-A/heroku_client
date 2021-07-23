@@ -50,7 +50,7 @@ export default class DrawHelpDesk {
 
     for(let i of data) {
       const li = document.createElement('li');
-      li.classList.add('.ticket-item');
+      li.classList.add('ticket-item');
       li.dataset.id = i.id;
       li.innerHTML = `<div class="brief-description">
       <div class="item-data block-icon block-complited">
