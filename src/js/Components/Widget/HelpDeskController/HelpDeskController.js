@@ -75,10 +75,17 @@ export default class HelpDeskController {
                 return;
             }
 
-            if (event.target.closest('.edit-cancel')) {
-                this.currentId = null;
-                this.popup.deletePopup();
-                return;
+            if (event.target.closest('.ticket-item')) {
+                const ticketItem = event.target.closest('.ticket-item');
+                const fullDescription = ticketItem.querySelector('.full-description');
+                if (!fullDescription) {
+                    [...document.querySelectorAll('.full-description')]
+                    .forEach(item => item.classList.add('.disable'));
+
+                    getFullDescriptionTicket(ticketItem, ticketItem.dataset.id);
+                    return;
+                }
+                this.widget.changeVisiableFullDescription(fullDescription);
             }
         });
     }
@@ -94,6 +101,23 @@ export default class HelpDeskController {
 
         xhr.onload = (event) => {
             this.widget.drawAllTickets(xhr.response);
+        };
+
+        xhr.send();
+    }
+
+    getFullDescriptionTicket(element, id) {
+        const xhr = new XMLHttpRequest();
+
+        const method = 'Ticket';
+
+        xhr.open('GET', `https://yushkevich-server.herokuapp.com/?method=${method}&id=${id}`);
+
+        xhr.responseType = 'json';
+
+        xhr.onload = (event) => {
+            const data = xhr.response;
+            drawFullDescription(element, data)
         };
 
         xhr.send();

@@ -82,4 +82,25 @@ export default class DrawHelpDesk {
     blockDate.textContent = moment(i.date).format('DD-MM-YY HH:mm')
     }
   }
+
+  drawFullDescription(element, data) {
+    const fullDescription = document.createElement('div');
+    fullDescription.classList.add('full-description');
+    for(let i of data) {
+      const p = document.createElement('p');
+      p.textContent = i;
+      fullDescription.appendChild(p);
+    }
+    element.appendChild(fullDescription);
+  }
+
+  changeVisiableFullDescription(element) {
+    if (element.classList.contains('.disable')) {
+      [...document.querySelectorAll('.full-description')]
+      .forEach(item => item.classList.add('.disable'));
+      element.classList.remove('.disable');
+    } else {
+      element.classList.add('.disable');
+    }
+  }
 }
