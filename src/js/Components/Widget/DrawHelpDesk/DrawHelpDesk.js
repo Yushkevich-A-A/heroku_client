@@ -42,7 +42,7 @@ export default class DrawHelpDesk {
   }
 
   drawAllTickets(data) {
-    if (data === null) {
+    if (!data) {
       this.emptyBlock.classList.remove('disable');
       return;
     }
@@ -79,7 +79,7 @@ export default class DrawHelpDesk {
 
     const blockDate = li.querySelector('.block-date');
 
-    blockDate.textContent = moment(i.date).format('DD-MM-YY HH.mm')
+    blockDate.textContent = moment(i.date).format('DD-MM-YY HH:mm')
     }
   }
 }

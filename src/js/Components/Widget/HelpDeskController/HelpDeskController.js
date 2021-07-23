@@ -1,5 +1,5 @@
 export default class HelpDeskController {
-    constructor(data, widget, popup, deletePopup) {
+    constructor(widget, popup, deletePopup, data) {
         this.data = data;
         this.widget = widget;
         this.popup = popup;
@@ -10,7 +10,7 @@ export default class HelpDeskController {
 
     init() {
         this.addListeners();
-        this.widget.drawAllTickets(this.data);
+        this.getAllDataWithServer();
     }
 
     addListeners() {
@@ -86,12 +86,16 @@ export default class HelpDeskController {
     getAllDataWithServer() {
         const xhr = new XMLHttpRequest();
 
-        const method = 'allTickets'
+        const method = 'allTickets';
 
-        open('GET', 'https://yushkevich-server.herokuapp.com/')
+        xhr.open('GET', `https://yushkevich-server.herokuapp.com/?method=${method}`);
 
+        xhr.responseType = 'json';
 
+        xhr.onload = (event) => {
+            this.widget.drawAllTickets(xhr.response);
+        };
 
-
+        xhr.send();
     }
 }
