@@ -74,10 +74,24 @@ export default class HelpDeskController {
                 this.popup.deletePopup();
                 return;
             }
+
+            if (event.target.closest('.edit-cancel')) {
+                this.currentId = null;
+                this.popup.deletePopup();
+                return;
+            }
         });
     }
 
     getAllDataWithServer() {
+        const xhr = new XMLHttpRequest();
+
+        const method = 'allTickets'
+
+        open('GET', 'https://yushkevich-server.herokuapp.com/')
+
+
+
 
     }
 }
