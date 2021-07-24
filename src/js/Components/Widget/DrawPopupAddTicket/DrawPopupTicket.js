@@ -1,7 +1,4 @@
 export default class DrawPopupTicket {
-  constructor() {
-  }
-
   drawPopup(type, brief, full) {
     this.wrapperPopup = document.createElement('div');
     this.wrapperPopup.classList.add('wrapper-popup');
@@ -22,12 +19,11 @@ export default class DrawPopupTicket {
       </div>
     </form>
   </div>`;
-  document.body.appendChild(this.wrapperPopup);
+    document.body.appendChild(this.wrapperPopup);
     const briefDesc = document.querySelector('.input-brief-desc');
     briefDesc.value = brief || '';
     const fullDesc = document.querySelector('.input-full');
     fullDesc.textContent = full || '';
-
   }
 
   deletePopup() {

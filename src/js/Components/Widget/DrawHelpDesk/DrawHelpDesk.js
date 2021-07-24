@@ -1,3 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable class-methods-use-this */
+
 import moment from 'moment';
 import 'moment/locale/ru';
 
@@ -16,7 +19,7 @@ export default class DrawHelpDesk {
   drawWidget() {
     this.widgetWrapper = document.createElement('div');
     this.widgetWrapper.classList.add('widget-wrapper');
-    this.widgetWrapper.innerHTML =`<div class="widget">
+    this.widgetWrapper.innerHTML = `<div class="widget">
     <div class="add-block">
       <div class="button add-ticket">
         Добавить текст
@@ -29,11 +32,11 @@ export default class DrawHelpDesk {
         Ticket list is empty
       </div>
     </div>
-  </div>`
-  document.body.appendChild(this.widgetWrapper);
+  </div>`;
+    document.body.appendChild(this.widgetWrapper);
 
-  this.ticketList = document.querySelector('.ticket-list');
-  this.emptyBlock = document.querySelector('.empty');
+    this.ticketList = document.querySelector('.ticket-list');
+    this.emptyBlock = document.querySelector('.empty');
   }
 
   resetDataTicketList() {
@@ -47,7 +50,7 @@ export default class DrawHelpDesk {
       return;
     }
     this.emptyBlock.classList.add('disable');
-    for(let i of data) {
+    for (const i of data) {
       const li = document.createElement('li');
       li.classList.add('ticket-item');
       li.dataset.id = i.id;
@@ -67,25 +70,25 @@ export default class DrawHelpDesk {
       </div>
     </div>`;
 
-    this.ticketList.appendChild(li);
+      this.ticketList.appendChild(li);
 
-    if(i.status) {
-      li.querySelector('.block-complited').classList.add('complited');
-    }
+      if (i.status) {
+        li.querySelector('.block-complited').classList.add('complited');
+      }
 
-    const titleTicket = li.querySelector('.title-ticket');
-    titleTicket.textContent = i.name;
+      const titleTicket = li.querySelector('.title-ticket');
+      titleTicket.textContent = i.name;
 
-    const blockDate = li.querySelector('.block-date');
+      const blockDate = li.querySelector('.block-date');
 
-    blockDate.textContent = moment(i.date).format('DD-MM-YY HH:mm')
+      blockDate.textContent = moment(i.date).format('DD-MM-YY HH:mm');
     }
   }
 
   drawFullDescription(element, data) {
     const fullDescription = document.createElement('div');
     fullDescription.classList.add('full-description');
-    for(let i of data) {
+    for (const i of data) {
       const p = document.createElement('p');
       p.textContent = i;
       fullDescription.appendChild(p);
@@ -96,7 +99,7 @@ export default class DrawHelpDesk {
   changeVisiableFullDescription(element) {
     if (element.classList.contains('disable')) {
       [...document.querySelectorAll('.full-description')]
-      .forEach(item => item.classList.add('disable'));
+        .forEach((item) => item.classList.add('disable'));
       element.classList.remove('disable');
     } else {
       element.classList.add('disable');

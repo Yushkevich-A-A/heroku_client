@@ -1,7 +1,7 @@
-import DrawHelpDesk from "./DrawHelpDesk/DrawHelpDesk";
-import DrawPopupTicket from "./DrawPopupAddTicket/DrawPopupTicket";
-import DrawDelete from "./DrawDelete/DrawDelete";
-import HelpDeskController from "./HelpDeskController/HelpDeskController";
+import DrawHelpDesk from './DrawHelpDesk/DrawHelpDesk';
+import DrawPopupTicket from './DrawPopupAddTicket/DrawPopupTicket';
+import DrawDelete from './DrawDelete/DrawDelete';
+import HelpDeskController from './HelpDeskController/HelpDeskController';
 
 // const arr = [{
 //     id: 0,
@@ -15,4 +15,3 @@ const popup = new DrawPopupTicket();
 const deletePopap = new DrawDelete();
 
 const controller = new HelpDeskController(widget, popup, deletePopap);
-

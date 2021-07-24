@@ -1,7 +1,4 @@
 export default class DrawDelete {
-  constructor() {
-  }
-
   drawDelete() {
     this.wrapperDelete = document.createElement('div');
     this.wrapperDelete.classList.add('wrapper-delete');
@@ -20,7 +17,7 @@ export default class DrawDelete {
     </div>
   </div>`;
 
-  document.body.appendChild(this.wrapperDelete);
+    document.body.appendChild(this.wrapperDelete);
   }
 
   deleteDelete() {
