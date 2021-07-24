@@ -1,3 +1,5 @@
+import RequestToServer from "../RequestToServer/RequestToServer";
+
 export default class HelpDeskController {
     constructor(widget, popup, deletePopup, data) {
         this.data = data;
@@ -5,16 +7,21 @@ export default class HelpDeskController {
         this.popup = popup;
         this.deletePopup = deletePopup;
         this.currentId = null;
+
+        this.requestsToServer = new RequestToServer();
         this.init();
     }
 
     init() {
         this.addListeners();
-        this.getAllDataWithServer();
+        this.requestsToServer.getAllDataWithServer(data => {
+            this.widget.drawAllTickets(data);
+        });
     }
 
     addListeners() {
         document.addEventListener('click', event => {
+
             //блок удалить
             if (event.target.closest('.block-delete')) {
                 this.currentId = event.target.closest('.ticket-item').dataset.id;
@@ -23,28 +30,31 @@ export default class HelpDeskController {
             }
 
             if (event.target.closest('.delete-submit')) {
-                // здесь должна быть функция отправки запроса на сервер
+                this.requestsToServer.deleteTicket(this.currentId, data => {
+                    this.widget.drawAllTickets(data);
+                });
                 this.currentId = null;
                 this.deletePopup.deleteDelete();
                 return;
             }
             
             if (event.target.closest('.delete-cancel')) {
-
                 this.currentId = null;
                 this.deletePopup.deleteDelete();
                 return;
             }
 
             //блок добавить новый тикет
-
             if (event.target.closest('.add-ticket')) {
                 this.popup.drawPopup('add');
                 return;
             }
 
             if (event.target.closest('.add-submit')) {
-                // здесь должна быть функция отправки запроса на сервер
+                const form = event.target.closest('.form');
+                this.requestsToServer.addNewTicket(form, data => {
+                    this.widget.drawAllTickets(data);
+                });
                 this.popup.deletePopup();
                 return;
             }
@@ -54,17 +64,32 @@ export default class HelpDeskController {
                 return;
             }
 
-            //блок добавить изменить существующий
-
+            //блок изменить существующий
             if (event.target.closest('.block-edit')) {
-                this.currentId = event.target.closest('.ticket-item').dataset.id;
-                this.popup.drawPopup('edit');
+                const currentElement = event.target.closest('.ticket-item');
+                this.currentId = currentElement.dataset.id;
+                let fullDescription = currentElement.querySelector('.full-description');
+                const valueInputBrief = currentElement.querySelector('.title-ticket').textContent;
+
+                if (!fullDescription) {
+                    this.requestsToServer.getFullDescriptionTicket(this.currentId)
+                    .then(result => result.join('\r\n'))
+                    .then(result => {this.popup.drawPopup('edit', valueInputBrief, result)});
+                    return;
+                }
+
+                const valueInputfull = [...fullDescription.querySelectorAll('p')]
+                                    .map(item => item.textContent).join('\r\n');
+                this.popup.drawPopup('edit', valueInputBrief, valueInputfull);
                 return;
             }
 
             if (event.target.closest('.edit-submit')) {
+                const form = event.target.closest('.form');
+                this.requestsToServer.editTicket(form, this.currentId, data => {
+                    this.widget.drawAllTickets(data);
+                });
                 this.currentId = null;
-                // здесь должна быть функция отправки запроса на сервер
                 this.popup.deletePopup();
                 return;
             }
@@ -75,51 +100,21 @@ export default class HelpDeskController {
                 return;
             }
 
+            // получить полное описание тикета
             if (event.target.closest('.ticket-item')) {
                 const ticketItem = event.target.closest('.ticket-item');
+
                 const fullDescription = ticketItem.querySelector('.full-description');
                 if (!fullDescription) {
                     [...document.querySelectorAll('.full-description')]
-                    .forEach(item => item.classList.add('.disable'));
+                    .forEach(item => item.classList.add('disable'));
 
-                    getFullDescriptionTicket(ticketItem, ticketItem.dataset.id);
+                    this.requestsToServer.getFullDescriptionTicket(ticketItem.dataset.id)
+                    .then(result => this.widget.drawFullDescription(ticketItem, result));
                     return;
                 }
                 this.widget.changeVisiableFullDescription(fullDescription);
             }
         });
-    }
-
-    getAllDataWithServer() {
-        const xhr = new XMLHttpRequest();
-
-        const method = 'allTickets';
-
-        xhr.open('GET', `https://yushkevich-server.herokuapp.com/?method=${method}`);
-
-        xhr.responseType = 'json';
-
-        xhr.onload = (event) => {
-            this.widget.drawAllTickets(xhr.response);
-        };
-
-        xhr.send();
-    }
-
-    getFullDescriptionTicket(element, id) {
-        const xhr = new XMLHttpRequest();
-
-        const method = 'Ticket';
-
-        xhr.open('GET', `https://yushkevich-server.herokuapp.com/?method=${method}&id=${id}`);
-
-        xhr.responseType = 'json';
-
-        xhr.onload = (event) => {
-            const data = xhr.response;
-            drawFullDescription(element, data)
-        };
-
-        xhr.send();
     }
 }

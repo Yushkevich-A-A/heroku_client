@@ -11,7 +11,6 @@ export default class DrawHelpDesk {
 
   init() {
     this.drawWidget();
-    this.drawAllTickets(this.data);
   }
 
   drawWidget() {
@@ -42,12 +41,12 @@ export default class DrawHelpDesk {
   }
 
   drawAllTickets(data) {
-    if (!data) {
+    this.resetDataTicketList();
+    if (data.length === 0) {
       this.emptyBlock.classList.remove('disable');
       return;
     }
     this.emptyBlock.classList.add('disable');
-
     for(let i of data) {
       const li = document.createElement('li');
       li.classList.add('ticket-item');
@@ -95,12 +94,12 @@ export default class DrawHelpDesk {
   }
 
   changeVisiableFullDescription(element) {
-    if (element.classList.contains('.disable')) {
+    if (element.classList.contains('disable')) {
       [...document.querySelectorAll('.full-description')]
-      .forEach(item => item.classList.add('.disable'));
-      element.classList.remove('.disable');
+      .forEach(item => item.classList.add('disable'));
+      element.classList.remove('disable');
     } else {
-      element.classList.add('.disable');
+      element.classList.add('disable');
     }
   }
 }
