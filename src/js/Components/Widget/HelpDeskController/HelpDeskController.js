@@ -51,6 +51,11 @@ export default class HelpDeskController {
 
       if (event.target.closest('.add-submit')) {
         const form = event.target.closest('.form');
+        const mainInput = form.querySelector('.input-brief-desc');
+        if (mainInput.value === '') {
+            mainInput.focus();
+            return
+        }
         this.requestsToServer.addNewTicket(form, (data) => {
           this.widget.drawAllTickets(data);
         });
@@ -85,6 +90,12 @@ export default class HelpDeskController {
 
       if (event.target.closest('.edit-submit')) {
         const form = event.target.closest('.form');
+        const mainInput = form.querySelector('.input-brief-desc');
+        console.log(mainInput)
+        if (mainInput.value === '') {
+            mainInput.focus();
+            return
+        }
         this.requestsToServer.editTicket(form, this.currentId, (data) => {
           this.widget.drawAllTickets(data);
         });

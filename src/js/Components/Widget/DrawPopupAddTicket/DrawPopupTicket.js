@@ -7,7 +7,7 @@ export default class DrawPopupTicket {
     <form class="form">
       <div class="input-block">
         <label class="label label-brief-desc" for="brief">Краткое описание</label>
-        <input type="text" name="brief" class="input input-brief-desc">
+        <input type="text" name="brief" class="input input-brief-desc" required>
       </div>
       <div class="input-block">
         <label class="label label-full-desc" for="full">Полное описание</label>
