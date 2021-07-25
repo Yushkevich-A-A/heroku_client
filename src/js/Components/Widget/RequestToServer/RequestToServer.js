@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+/* eslint-disable no-return-assign */
 
 export default class RequestToServer {
   constructor() {
@@ -139,7 +140,7 @@ export default class RequestToServer {
       setTimeout(() => {
         this.signLoad.style.opacity = 0;
         setTimeout(() => {
-          this.signLoad.classList.add('disable')
+          this.signLoad.classList.add('disable');
         }, 500);
       }, 500);
     }
