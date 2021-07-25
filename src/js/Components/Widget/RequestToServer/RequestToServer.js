@@ -1,6 +1,10 @@
 /* eslint-disable class-methods-use-this */
 
 export default class RequestToServer {
+  constructor() {
+    this.signLoad = document.querySelector('.wrapper-sign-load');
+  }
+
   getAllDataWithServer(callback) {
     const xhr = new XMLHttpRequest();
     const method = 'allTickets';
@@ -11,11 +15,17 @@ export default class RequestToServer {
         try {
           const data = JSON.parse(xhr.responseText);
           callback(data);
+          this.signLoadFunction();
         } catch (e) {
           console.error(e);
         }
       }
     });
+    xhr.addEventListener('error', () => {
+      this.signLoadFunction();
+    });
+
+    this.signLoadFunction(true);
 
     xhr.send();
   }
@@ -28,12 +38,18 @@ export default class RequestToServer {
       xhr.addEventListener('load', () => {
         if (xhr.status >= 200 && xhr.status < 300) {
           resolve(JSON.parse(xhr.responseText));
+          this.signLoadFunction();
         } else {
           const error = new Error(this.statusText);
           error.code = this.status;
           reject(new Error('Непредвиденная ошибка'));
         }
       });
+      xhr.addEventListener('error', () => {
+        this.signLoadFunction();
+      });
+
+      this.signLoadFunction(true);
 
       xhr.addEventListener('error', () => {
         reject(new Error('Непредвиденная ошибка'));
@@ -58,6 +74,11 @@ export default class RequestToServer {
         }
       }
     });
+    xhr.addEventListener('error', () => {
+      this.signLoadFunction();
+    });
+
+    this.signLoadFunction(true);
     xhr.send();
   }
 
@@ -77,6 +98,10 @@ export default class RequestToServer {
         }
       }
     });
+    xhr.addEventListener('error', () => {
+      this.signLoadFunction();
+    });
+    this.signLoadFunction(true);
     formData.append('method', method);
     xhr.send(formData);
   }
@@ -97,8 +122,26 @@ export default class RequestToServer {
         }
       }
     });
+    xhr.addEventListener('error', () => {
+      this.signLoadFunction();
+    });
+    this.signLoadFunction(true);
     formData.append('method', method);
     formData.append('id', id);
     xhr.send(formData);
+  }
+
+  signLoadFunction(value = false) {
+    if (value) {
+      this.signLoad.classList.remove('disable');
+      setTimeout(() => this.signLoad.style.opacity = 1, 100);
+    } else {
+      setTimeout(() => {
+        this.signLoad.style.opacity = 0;
+        setTimeout(() => {
+          this.signLoad.classList.add('disable')
+        }, 500);
+      }, 500);
+    }
   }
 }
